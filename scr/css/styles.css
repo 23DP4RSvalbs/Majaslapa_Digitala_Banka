@@ -547,7 +547,7 @@ header .container {
 }
 
 .contact-form-wrapper textarea {
-    resize: vertical;
+    resize: both;
     min-height: 120px;
     font-family: Arial, sans-serif;
 }
