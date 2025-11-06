@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BankaPro - Moderna Digitālā Banka</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="scr\css\styles.css">
 </head>
 <body>
     <header>
@@ -67,57 +67,45 @@
             <h1>Moderna Digitālā Banka</h1>
             <h2>Privātpersonām, Ģimenēm un Uzņēmumiem</h2>
             <p>Vienkārša un droša banku sistēma visiem. Pārvaldiet savus līdzekļus ērti un droši ar mūsu moderno lietotni.</p>
-            <img src="icon.png" alt="BankaPro lietotne">
+            <img src="scr\images\icon.png" alt="BankaPro lietotne">
         </div>
     </section>
 
-    <section class="services" id="pakalpojumi">
+    <section id="services" class="services">
         <div class="container">
             <h2>Mūsu Pakalpojumi</h2>
             
             <div class="search-container">
                 <input 
                     type="text" 
-                    id="searchInput" 
                     class="search-input" 
-                    placeholder="Meklēt pakalpojumus..."
+                    id="searchInput" 
+                    placeholder="Meklēt pakalpojumus..." 
                     oninput="filterCards()"
                 >
-                <span class="search-icon"></span>
+                <span class="search-icon">🔍</span>
             </div>
+            
 
-            <div id="noResults" class="no-results" style="display: none;">
-                Nav atrasti pakalpojumi, kas atbilst meklēšanas kritērijiem.
+            <div style="margin-bottom: 2.5rem; text-align: center;">
+                <button onclick="openCreateCardModal()" class="card-btn" style="padding: 10px 20px; font-size: 0.95rem;">
+                    Izveidot Jaunu Kartiņu
+                </button>
             </div>
             
             <div class="cards">
-                <div class="card" data-title="Privātpersonām" data-text="Vienkārši banku pakalpojumi ikdienai. Konti, kartes un pārskaitījumi vienā vietā.">
-                    <div class="card-image-wrapper">
-                        <img src="person.png" alt="Privātpersonām">
-                    </div>
-                    <h3>Privātpersonām</h3>
-                    <p>Vienkārši banku pakalpojumi ikdienai. Konti, kartes un pārskaitījumi vienā vietā.</p>
-                    <button class="card-btn" onclick="openServiceModal('personal')">Uzzināt vairāk</button>
-                </div>
-                <div class="card" data-title="Ģimenēm" data-text="Pārvaldiet ģimenes budžetu. Vairāki lietotāji, kontrole un drošība visiem ģimenes locekļiem.">
-                    <div class="card-image-wrapper">
-                        <img src="family.webp" alt="Ģimenēm">
-                    </div>
-                    <h3>Ģimenēm</h3>
-                    <p>Pārvaldiet ģimenes budžetu. Vairāki lietotāji, kontrole un drošība visiem ģimenes locekļiem.</p>
-                    <button class="card-btn" onclick="openServiceModal('family')">Uzzināt vairāk</button>
-                </div>
-                <div class="card" data-title="Uzņēmumiem" data-text="Profesionāli risinājumi jūsu biznesam. Grāmatvedība, maksājumi un analītika.">
-                    <div class="card-image-wrapper">
-                        <img src="2830596.png" alt="Uzņēmumiem">
-                    </div>
-                    <h3>Uzņēmumiem</h3>
-                    <p>Profesionāli risinājumi jūsu biznesam. Grāmatvedība, maksājumi un analītika.</p>
-                    <button class="card-btn" onclick="openServiceModal('business')">Uzzināt vairāk</button>
-                </div>
+            </div>
+            
+            <div id="noResults" class="no-results" style="display: none;">
+                Nav atrasts neviens pakalpojums
             </div>
         </div>
     </section>
+    
+
+<div class="cards">
+
+</div>
 
     <section class="about" id="parmums">
         <div class="container">
@@ -252,6 +240,31 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+<div id="cardModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeCardModal()">&times;</span>
+        <h2 id="cardModalTitle">Izveidot Jaunu Kartiņu</h2>
+        <form id="cardForm" onsubmit="handleCardSubmit(event)">
+            <div class="form-group">
+                <label for="cardTitle">Nosaukums *</label>
+                <input type="text" id="cardTitle" required>
+            </div>
+            <div class="form-group">
+                <label for="cardDescription">Apraksts *</label>
+                <textarea id="cardDescription" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="cardImage">Attēla URL <span style="color: #dc143c;">*</span></label>
+                <input type="url" id="cardImage" required placeholder="https://example.com/image.jpg">
+            </div>
+
+            <input type="hidden" id="cardEditIndex" value="">
+            <button type="submit" class="submit-btn" id="cardSubmitBtn">Izveidot</button>
+        </form>
+    </div>
+</div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="scr\js\script.js"></script>
 </body>
 </html>
