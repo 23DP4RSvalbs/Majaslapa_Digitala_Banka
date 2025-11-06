@@ -1423,3 +1423,10 @@ body.light-mode .modal-body::-webkit-scrollbar-thumb {
 body.light-mode .modal-body::-webkit-scrollbar-thumb:hover {
     background: #868e96;
 }
+
+#cardDescription {
+    resize: vertical !important;
+    min-width: 0;
+    max-width: 100%;
+}
+
