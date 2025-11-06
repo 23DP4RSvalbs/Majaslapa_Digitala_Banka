@@ -1,7 +1,6 @@
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
     mobileMenu.classList.toggle('active');
-    
     const toggle = document.querySelector('.mobile-menu-toggle');
     if (mobileMenu.classList.contains('active')) {
         toggle.textContent = '✕';
@@ -24,8 +23,8 @@ window.addEventListener('resize', function() {
 
 function toggleLightMode() {
     document.body.classList.toggle('light-mode');
-    
     const toggle = document.querySelector('.dark-mode-toggle');
+    
     if (document.body.classList.contains('light-mode')) {
         toggle.textContent = '🌙';
         toggle.title = 'Pārslēgties uz tumšo režīmu';
@@ -111,18 +110,16 @@ function openServiceModal(type) {
             content: `
                 <p><strong>Mēs piedāvājam:</strong></p>
                 <ul>
-                    <li>Bezmaksas kontu atvēršana un uzturēšana</li>
-                    <li>Viedās maksājumu kartes ar cashback</li>
-                    <li>Ātri un droši pārskaitījumi</li>
-                    <li>24/7 tiešsaistes piekļuve jūsu kontam</li>
-                    <li>Personalizēts klientu atbalsts</li>
+                    <li>Bezmaksas kontu atvēršana</li>
+                    <li>Debet un kredītkartes</li>
+                    <li>Ātri pārskaitījumi</li>
+                    <li>24/7 klientu atbalsts</li>
                 </ul>
                 <p><strong>Priekšrocības:</strong></p>
                 <ul>
-                    <li>Nav ikmēneša maksas</li>
-                    <li>Ātra kontu atvēršana - līdz 5 minūtēm</li>
-                    <li>Augsta drošības līmeņa garantija</li>
-                    <li>Ērti mobilā lietotne iOS un Android</li>
+                    <li>Nav slēpto maksas</li>
+                    <li>Mobilā aplikācija</li>
+                    <li>Drošība garantēta</li>
                 </ul>
                 <p>Sāciet lietot BankaPro jau šodien un izbaudiet modernas bankas iespējas!</p>
             `
@@ -132,18 +129,16 @@ function openServiceModal(type) {
             content: `
                 <p><strong>Ideāls risinājums ģimenes budžeta pārvaldībai:</strong></p>
                 <ul>
-                    <li>Kopīgs ģimenes konts ar individuālu piekļuvi</li>
-                    <li>Bērnu kartes ar vecāku kontroli</li>
-                    <li>Budžeta plānošanas rīki</li>
-                    <li>Automātiskā uzkrājumu funkcija</li>
-                    <li>Izdevumu kategorizēšana un analīze</li>
+                    <li>Kopīgs ģimenes konts</li>
+                    <li>Individuālas kartes visiem</li>
+                    <li>Izdevumu kontrole</li>
+                    <li>Bērnu uzkrājumu konti</li>
                 </ul>
                 <p><strong>Īpašās iespējas:</strong></p>
                 <ul>
-                    <li>Līdz 5 papildu kartes bez maksas</li>
-                    <li>Individuālie izdevumu limiti katram ģimenes loceklim</li>
-                    <li>Real-time paziņojumi par visiem darījumiem</li>
-                    <li>Ģimenes mērķu sasniegšanas atbalsts</li>
+                    <li>Budžeta plānošana</li>
+                    <li>Izdevumu kategorijas</li>
+                    <li>Automātiskie maksājumi</li>
                 </ul>
                 <p>Pārvaldiet ģimenes finanses viegli un pārskatāmi!</p>
             `
@@ -153,19 +148,16 @@ function openServiceModal(type) {
             content: `
                 <p><strong>Profesionāli biznesa risinājumi:</strong></p>
                 <ul>
-                    <li>Uzņēmumu norēķinu konti</li>
-                    <li>Korporatīvās kartes darbiniekiem</li>
-                    <li>Integrācija ar grāmatvedības sistēmām</li>
-                    <li>Masveida maksājumi</li>
-                    <li>Starptautiskie pārskaitījumi ar labiem kursiem</li>
+                    <li>Biznesa konti</li>
+                    <li>Korporatīvās kartes</li>
+                    <li>Maksājumu apstrāde</li>
+                    <li>Finanšu analītika</li>
                 </ul>
                 <p><strong>Finanšu pakalpojumi:</strong></p>
                 <ul>
-                    <li>Biznesa kredīti un aizdevumi</li>
-                    <li>Līzinga risinājumi</li>
-                    <li>Detalizēti finanšu pārskati un analītika</li>
-                    <li>Personalizēts biznesa konsultants</li>
-                    <li>API integrācija jūsu sistēmām</li>
+                    <li>Grāmatvedības integrācija</li>
+                    <li>Masveida maksājumi</li>
+                    <li>API pieeja</li>
                 </ul>
                 <p>Attīstiet savu biznesu kopā ar BankaPro!</p>
             `
@@ -175,7 +167,6 @@ function openServiceModal(type) {
     const content = serviceContent[type];
     title.textContent = content.title;
     body.innerHTML = content.content;
-    
     modal.style.display = 'block';
 }
 
@@ -183,6 +174,7 @@ window.onclick = function(event) {
     const loginModal = document.getElementById('loginModal');
     const signupModal = document.getElementById('signupModal');
     const serviceModal = document.getElementById('serviceModal');
+    const cardModal = document.getElementById('cardModal');
     
     if (event.target === loginModal) {
         loginModal.style.display = 'none';
@@ -192,6 +184,9 @@ window.onclick = function(event) {
     }
     if (event.target === serviceModal) {
         serviceModal.style.display = 'none';
+    }
+    if (event.target === cardModal) {
+        cardModal.style.display = 'none';
     }
 }
 
@@ -211,9 +206,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const href = this.getAttribute('href');
         if (href !== '#' && document.querySelector(href)) {
             e.preventDefault();
-            document.querySelector(href).scrollIntoView({
-                behavior: 'smooth'
-            });
+            document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
@@ -276,12 +269,181 @@ function validateContactForm(event) {
     }
 }
 
+function loadCardsFromStorage() {
+    const storedCards = localStorage.getItem('bankCards');
+    
+    if (storedCards) {
+        return JSON.parse(storedCards);
+    } else {
+        return getDefaultCards();
+    }
+}
+
+function getDefaultCards() {
+    return [
+        {
+            title: 'Pakalpojumi Privātpersonām',
+            description: 'Vienkārši banku pakalpojumi ikdienai. Konti, kartes un pārskaitījumi vienā vietā.',
+            image: 'https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            type: 'personal'
+        },
+        {
+            title: 'Pakalpojumi Ģimenēm',
+            description: 'Pārvaldiet ģimenes budžetu. Vairāki lietotāji, kontrole un drošība visiem ģimenes locekļiem.',
+            image: 'https://images.pexels.com/photos/1722198/pexels-photo-1722198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            type: 'family'
+        },
+        {
+            title: 'Pakalpojumi Uzņēmumiem',
+            description: 'Profesionāli risinājumi jūsu biznesam. Grāmatvedība, maksājumi un analītika.',
+            image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            type: 'business'
+        }
+    ];
+}
+
+function saveCardsToStorage(cards) {
+    localStorage.setItem('bankCards', JSON.stringify(cards));
+}
+
+function renderCards() {
+    const cards = loadCardsFromStorage();
+    const cardsContainer = document.querySelector('.cards');
+    
+    if (!cardsContainer) return;
+    
+    cardsContainer.innerHTML = '';
+    
+    cards.forEach((card, index) => {
+        const cardElement = createCardElement(card, index);
+        cardsContainer.appendChild(cardElement);
+    });
+}
+
+function createCardElement(card, index) {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card fade-in';
+    cardDiv.setAttribute('data-title', card.title);
+    cardDiv.setAttribute('data-text', card.description);
+    
+    let imageHTML = '';
+    if (card.image && card.image.trim() !== '') {
+        imageHTML = `
+            <div class="card-image-wrapper">
+                <img src="${card.image}" alt="${card.title}" onerror="this.parentElement.style.display='none';">
+            </div>
+        `;
+    }
+    
+    let cardHTML = imageHTML + `
+        <div class="card-content">
+            <h3>${card.title}</h3>
+            <p>${card.description}</p>
+            <div class="card-buttons">
+    `;
+    
+    if (card.type) {
+        cardHTML += `<button class="card-btn" onclick="openServiceModal('${card.type}')">Uzzināt vairāk</button>`;
+    }
+    
+    cardHTML += `
+                <button class="card-btn" onclick="editCard(${index})">Labot</button>
+                <button class="card-btn" onclick="deleteCard(${index})" style="background: linear-gradient(135deg, #8B0000, #DC143C);">Dzēst</button>
+            </div>
+        </div>
+    `;
+    
+    cardDiv.innerHTML = cardHTML;
+    return cardDiv;
+}
+
+function openCreateCardModal() {
+    document.getElementById('cardModalTitle').textContent = 'Izveidot Jaunu Kartiņu';
+    document.getElementById('cardSubmitBtn').textContent = 'Izveidot';
+    document.getElementById('cardForm').reset();
+    document.getElementById('cardEditIndex').value = '';
+    document.getElementById('cardModal').style.display = 'block';
+}
+
+function editCard(index) {
+    const cards = loadCardsFromStorage();
+    const card = cards[index];
+    
+    document.getElementById('cardModalTitle').textContent = 'Labot Kartiņu';
+    document.getElementById('cardSubmitBtn').textContent = 'Saglabāt Izmaiņas';
+    document.getElementById('cardTitle').value = card.title;
+    document.getElementById('cardDescription').value = card.description;
+    document.getElementById('cardImage').value = card.image || '';
+    document.getElementById('cardEditIndex').value = index;
+    document.getElementById('cardModal').style.display = 'block';
+}
+
+function deleteCard(index) {
+    if (confirm('Vai tiešām vēlaties dzēst šo kartiņu?')) {
+        const cards = loadCardsFromStorage();
+        cards.splice(index, 1);
+        saveCardsToStorage(cards);
+        renderCards();
+    }
+}
+
+function handleCardSubmit(event) {
+    event.preventDefault();
+    
+    const title = document.getElementById('cardTitle').value.trim();
+    const description = document.getElementById('cardDescription').value.trim();
+    const image = document.getElementById('cardImage').value.trim();
+    const editIndex = document.getElementById('cardEditIndex').value;
+    
+    if (!image) {
+        alert('Attēla URL ir obligāts! Lūdzu, ievadiet derīgu attēla saiti.');
+        return;
+    }
+    
+    try {
+        new URL(image);
+    } catch (e) {
+        alert('Attēla URL nav derīgs! Lūdzu, ievadiet pareizu URL adresi.');
+        return;
+    }
+    
+    const cards = loadCardsFromStorage();
+    
+    const cardData = {
+        title: title,
+        description: description,
+        image: image,
+        type: ''
+    };
+    
+    if (editIndex !== '') {
+        const index = parseInt(editIndex);
+        if (cards[index].type) {
+            cardData.type = cards[index].type;
+        }
+        cards[index] = cardData;
+        alert('Kartiņa veiksmīgi atjaunināta!');
+    } else {
+        cards.push(cardData);
+        alert('Jauna kartiņa veiksmīgi izveidota!');
+    }
+    
+    saveCardsToStorage(cards);
+    renderCards();
+    closeCardModal();
+}
+
+function closeCardModal() {
+    document.getElementById('cardModal').style.display = 'none';
+    document.getElementById('cardForm').reset();
+}
+
 function filterCards() {
     const searchInput = document.getElementById('searchInput').value.toLowerCase();
     const cards = document.querySelectorAll('.card');
     const noResults = document.getElementById('noResults');
     let visibleCount = 0;
-    
+
     cards.forEach(card => {
         const title = card.getAttribute('data-title').toLowerCase();
         const text = card.getAttribute('data-text').toLowerCase();
@@ -297,7 +459,7 @@ function filterCards() {
             card.classList.remove('fade-in');
         }
     });
-    
+
     if (visibleCount === 0) {
         noResults.style.display = 'block';
     } else {
@@ -306,8 +468,5 @@ function filterCards() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.style.display = 'block';
-    });
+    renderCards();
 });
