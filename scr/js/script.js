@@ -342,9 +342,6 @@ function createCardElement(card, index) {
             <div class="card-buttons">
     `;
     
-    if (card.type) {
-        cardHTML += `<button class="card-btn" onclick="openServiceModal('${card.type}')">Uzzināt vairāk</button>`;
-    }
     
     cardHTML += `
                 <button class="card-btn" onclick="editCard(${index})">Labot</button>
