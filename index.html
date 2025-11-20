@@ -26,6 +26,7 @@
                         </li>
                         <li><a href="#parmums" class="nav-link">Par mums</a></li>
                         <li><a href="#kontakti" class="nav-link">Kontakti</a></li>
+                        <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
                     </ul>
                 </nav>
             </div>
@@ -53,6 +54,7 @@
                     </li>
                     <li><a href="#parmums" class="nav-link" onclick="closeMobileMenu()">Par mums</a></li>
                     <li><a href="#kontakti" class="nav-link" onclick="closeMobileMenu()">Kontakti</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
                 </ul>
             </nav>
             <div class="mobile-auth">
@@ -104,6 +106,50 @@
     
 
 <div class="cards">
+
+
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <h2>Ziņu Dashboard</h2>
+            
+
+            <div class="search-container" style="position: relative;">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="newsSearch" 
+                    placeholder="Meklēt ziņas... (piemēram: Latvia, Technology, Sports)"
+                    style="text-align: center;"
+                >
+            </div>
+            
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button onclick="fetchNews()" class="card-btn" style="padding: 10px 20px; font-size: 0.95rem;">
+                    Meklēt Ziņas
+                </button>
+            </div>
+            
+
+            <div id="searchHistory" style="margin-bottom: 2rem;">
+                <p style="color: #666666; margin-bottom: 0.5rem; text-align: center; font-size: 0.9rem;">Pēdējie meklējumi:</p>
+                <div id="historyButtons" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;"></div>
+            </div>
+
+
+            <div id="newsError" class="no-results" style="display: none;"></div>
+
+
+            <div id="newsCards" class="cards"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+
 
 </div>
 
@@ -226,6 +272,7 @@
                 <div class="form-group">
                     <label for="signupConfirmPassword">Apstiprināt paroli</label>
                     <input type="password" id="signupConfirmPassword" required>
+                    
                 </div>
                 <button type="submit" class="submit-btn">Reģistrēties</button>
             </form>
@@ -264,7 +311,6 @@
         </form>
     </div>
 </div>
-
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="scr\js\script.js"></script>
 </body>
 </html>
