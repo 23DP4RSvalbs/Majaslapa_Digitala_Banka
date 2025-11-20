@@ -467,3 +467,154 @@ function filterCards() {
 window.addEventListener('DOMContentLoaded', function() {
     renderCards();
 });
+
+
+
+const NEWS_API_KEY = '9f5066d71a374647a059d07d52f8b3b5'; 
+const NEWS_API_URL = 'https://newsapi.org/v2/everything';
+
+function loadSearchHistory() {
+    const history = localStorage.getItem('newsSearchHistory');
+    return history ? JSON.parse(history) : [];
+}
+
+function saveSearchHistory(query) {
+    let history = loadSearchHistory();
+    
+
+    history = history.filter(item => item !== query);
+    
+
+    history.unshift(query);
+    
+
+    if (history.length > 5) {
+        history = history.slice(0, 5);
+    }
+    
+    localStorage.setItem('newsSearchHistory', JSON.stringify(history));
+    renderSearchHistory();
+}
+
+function renderSearchHistory() {
+    const history = loadSearchHistory();
+    const historyContainer = document.getElementById('historyButtons');
+    
+    if (!historyContainer) return;
+    
+    historyContainer.innerHTML = '';
+    
+    if (history.length === 0) {
+        historyContainer.innerHTML = '<p style="color: #666666; font-size: 0.9rem;">Nav iepriekšēju meklējumu</p>';
+        return;
+    }
+    
+    history.forEach(query => {
+        const btn = document.createElement('button');
+        btn.className = 'card-btn';
+        btn.textContent = query;
+        btn.style.fontSize = '0.85rem';
+        btn.style.padding = '6px 12px';
+        btn.onclick = function() {
+            document.getElementById('newsSearch').value = query;
+            fetchNews();
+        };
+        historyContainer.appendChild(btn);
+    });
+}
+
+async function fetchNews() {
+    const searchInput = document.getElementById('newsSearch');
+    const newsCards = document.getElementById('newsCards');
+    const newsError = document.getElementById('newsError');
+    
+    const query = searchInput.value.trim();
+    
+    if (!query) {
+        showError('Lūdzu, ievadiet meklēšanas vaicājumu!');
+        return;
+    }
+    
+
+    newsCards.innerHTML = '<p style="text-align: center; color: #999999;">Ielādē ziņas...</p>';
+    newsError.style.display = 'none';
+    
+    try {
+        const url = `${NEWS_API_URL}?q=${encodeURIComponent(query)}&apiKey=${NEWS_API_KEY}&language=en&sortBy=publishedAt&pageSize=12`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('API pieprasījums neizdevās');
+        }
+        
+        const data = await response.json();
+        
+        if (data.status === 'ok' && data.articles && data.articles.length > 0) {
+            saveSearchHistory(query);
+            displayNews(data.articles);
+        } else {
+            showError('Dati nav pieejami');
+            newsCards.innerHTML = '';
+        }
+        
+    } catch (error) {
+        console.error('Error fetching news:', error);
+        showError('Dati nav pieejami');
+        newsCards.innerHTML = '';
+    }
+}
+
+function displayNews(articles) {
+    const newsCards = document.getElementById('newsCards');
+    newsCards.innerHTML = '';
+    
+    articles.forEach((article, index) => {
+        const card = document.createElement('div');
+        card.className = 'card fade-in';
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        const imageUrl = article.urlToImage || 'https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+        const title = article.title || 'Nav virsraksta';
+        const description = article.description || 'Nav apraksta pieejams.';
+        const source = article.source?.name || 'Nezināms avots';
+        const publishedDate = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('lv-LV') : '';
+        
+        card.innerHTML = `
+            <div class="card-content">
+                <div class="card-image-wrapper">
+                    <img src="${imageUrl}" alt="${title}" onerror="this.src='https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'">
+                </div>
+                <h3>${title}</h3>
+                <p style="font-size: 0.85rem; color: #999999; margin-bottom: 0.5rem;">${source} • ${publishedDate}</p>
+                <p>${description}</p>
+                <div class="card-buttons">
+                    <button class="card-btn" onclick="window.open('${article.url}', '_blank')">Lasīt vairāk</button>
+                </div>
+            </div>
+        `;
+        
+        newsCards.appendChild(card);
+    });
+}
+
+function showError(message) {
+    const newsError = document.getElementById('newsError');
+    newsError.textContent = message;
+    newsError.style.display = 'block';
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const newsSearch = document.getElementById('newsSearch');
+    if (newsSearch) {
+        newsSearch.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchNews();
+            }
+        });
+        
+
+        renderSearchHistory();
+    }
+});
